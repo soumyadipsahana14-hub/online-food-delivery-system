@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Speed Food</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR START -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold fs-3"
+           href="/">
+
+            <i class="bi bi-bag-heart-fill text-danger"></i>
+
+            Speed Food
+
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarContent">
+
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                <!-- HOME -->
+
+                <li class="nav-item me-3">
+
+                    <a class="nav-link"
+                       href="/">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <!-- CART -->
+
+                <li class="nav-item me-3">
+
+                    <a class="nav-link"
+                       href="/cart/">
+
+                        <i class="bi bi-cart-fill"></i>
+
+                        Cart
+
+                    </a>
+
+                </li>
+
+                <!-- SEARCH FORM -->
+
+                <form class="d-flex me-3"
+                      method="GET"
+                      action="/">
+
+                    <input class="form-control me-2"
+                           type="search"
+                           placeholder="Search Food"
+                           name="search">
+
+                    <button class="btn btn-warning"
+                            type="submit">
+
+                        Search
+
+                    </button>
+
+                </form>
+
+                <!-- LOGIN / LOGOUT -->
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item me-3 text-white">
+
+                        Hello,
+                        {{ user.username }}
+
+                    </li>
+                    
+                    <li class="nav-item me-3">
+
+                       <a href="{% url 'order_history' %}"
+                          class="btn btn-info">
+
+                        My Orders
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                        <a href="{% url 'logout' %}"
+                           class="btn btn-danger">
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item me-2">
+
+                        <a href="{% url 'login' %}"
+                           class="btn btn-outline-light">
+
+                            Login
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'register' %}"
+                           class="btn btn-warning">
+
+                            Register
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- NAVBAR END -->
+
+
+<!-- HERO SECTION START -->
+
+<div class="container-fluid bg-danger text-white py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <h1 class="display-3 fw-bold">
+
+                    Delicious Food Delivered Fast
+
+                </h1>
+
+                <p class="lead mt-4">
+
+                    Order your favorite burgers,
+                    pizza, drinks and snacks
+                    directly to your doorstep.
+
+                </p>
+
+                <a href="#foods"
+                   class="btn btn-light btn-lg mt-3">
+
+                    Order Now
+
+                </a>
+
+            </div>
+
+            <div class="col-md-6 text-center">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/5787/5787016.png"
+                     width="450"
+                     class="img-fluid">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- HERO SECTION END -->
+
+
+<!-- FOOD SECTION START -->
+
+<div class="container mt-5"
+     id="foods">
+
+    <h1 class="text-center mb-5 fw-bold">
+
+        Popular Foods
+
+    </h1>
+
+
+    <!-- CATEGORY FILTER BUTTONS -->
+
+    <div class="text-center mb-5">
+
+        <a href="/"
+           class="btn btn-dark m-1">
+
+            All
+
+        </a>
+
+        {% for category in categories %}
+
+            <a href="/?category={{ category.id }}"
+               class="btn btn-outline-danger m-1">
+
+                {{ category.name }}
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- FOOD CARDS -->
+
+    <div class="row">
+
+        {% for food in foods %}
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-lg mb-5">
+
+                <img src="{{ food.image.url }}"
+                     class="card-img-top"
+                     height="250">
+
+                <div class="card-body text-center">
+
+                    <h3 class="fw-bold">
+
+                        {{ food.name }}
+
+                    </h3>
+
+                    <p class="text-muted">
+
+                        {{ food.description }}
+
+                    </p>
+
+                    <h4 class="text-success fw-bold">
+
+                        ₹ {{ food.price }}
+
+                    </h4>
+
+                    <p class="badge bg-danger">
+
+                        {{ food.category.name }}
+
+                    </p>
+
+                    <br>
+
+                    <a href="{% url 'add_to_cart' food.id %}"
+                       class="btn btn-danger w-100 mt-3">
+
+                        <i class="bi bi-cart-plus-fill"></i>
+
+                        Add To Cart
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- FOOD SECTION END -->
+
+
+<!-- FOOTER START -->
+
+<footer class="bg-dark text-white text-center p-4 mt-5">
+
+    <h5>
+
+        Speed Food
+
+    </h5>
+
+    <p>
+
+        Fast Delivery | Fresh Food | Best Taste
+
+    </p>
+
+    <p class="mb-0">
+
+        © 2026 All Rights Reserved
+
+    </p>
+
+</footer>
+
+<!-- FOOTER END -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

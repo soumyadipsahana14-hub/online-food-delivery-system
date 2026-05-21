@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Payment</title>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js">
+    </script>
+
+</head>
+
+<body>
+
+<button id="rzp-button1">
+
+    Pay Now
+
+</button>
+
+<script>
+
+var options = {
+
+    "key": "{{ rzp_test_SnasQxjeBOKjJA }}",
+
+    "amount": "{{ payment.amount }}",
+
+    "currency": "INR",
+
+    "name": "Speed Food",
+
+    "description": "Food Order Payment",
+
+    "order_id": "{{ payment.id }}",
+
+    "handler": function (response){
+
+        window.location.href = "/payment-success/";
+    },
+
+    "theme": {
+
+        "color": "#dc3545"
+    }
+};
+
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+
+    rzp1.open();
+
+    e.preventDefault();
+}
+</script>
+
+</body>
+
+</html>

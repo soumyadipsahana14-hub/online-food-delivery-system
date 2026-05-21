@@ -1,0 +1,10 @@
+Include/
+Lib/
+*.exe
+*.bat
+*.ps1
+pyvenv.cfg
+__pycache__/
+*.pyc
+media/
+db.sqlite3
