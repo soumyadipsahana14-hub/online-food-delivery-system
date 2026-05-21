@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'foodapp',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +128,20 @@ RAZORPAY_KEY_SECRET = 'J22H9EzpvB5koSBVZDWt6tKR'
 
 import os
 
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+import cloudinary
+
+cloudinary.config(
+
+    cloud_name = 'Root',
+
+    api_key = '778446438739364',
+
+    api_secret = 'ElqvKxaMcrRLdXL-oktHWXaEfOg',
+
+    secure = True
+)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
