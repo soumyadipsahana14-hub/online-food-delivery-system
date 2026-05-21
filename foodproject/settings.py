@@ -123,3 +123,9 @@ LOGIN_URL = '/login/'
 RAZORPAY_KEY_ID = 'rzp_test_SnasQxjeBOKjJA'
 
 RAZORPAY_KEY_SECRET = 'J22H9EzpvB5koSBVZDWt6tKR'
+
+import os
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
