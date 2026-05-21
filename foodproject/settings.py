@@ -118,8 +118,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/login/'
 
 RAZORPAY_KEY_ID = 'rzp_test_SnasQxjeBOKjJA'
@@ -127,21 +127,25 @@ RAZORPAY_KEY_ID = 'rzp_test_SnasQxjeBOKjJA'
 RAZORPAY_KEY_SECRET = 'J22H9EzpvB5koSBVZDWt6tKR'
 
 import os
+CLOUDINARY_STORAGE = {
 
-MEDIA_URL = '/media/'
+    'CLOUD_NAME': 'dk0zjqsh4',
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    'API_KEY': '778446438739364',
 
-import cloudinary
+    'API_SECRET': 'ElqvKxaMcrRLdXL-oktHWXaEfOg',
+}
 
-cloudinary.config(
+STORAGES = {
 
-    cloud_name = 'Root',
+    "default": {
 
-    api_key = '778446438739364',
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
 
-    api_secret = 'ElqvKxaMcrRLdXL-oktHWXaEfOg',
+    "staticfiles": {
 
-    secure = True
-)
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
